@@ -69,7 +69,7 @@ def train_loop(net, criterion, EPOCHS, train_loader, optimizer, device, subclass
                 epoch_acc += (predicted == y_batch).sum().item() / len(y_batch)
 
         print(
-            f"Epoch {e+0:03}: | Loss: {epoch_loss/len(train_loader):.5f} | Acc: {epoch_acc/len(train_loader):.3f}"
+            f"Epoch {e+0:03}: | Loss: {epoch_loss/len(train_loader):.5f} | Acc: {epoch_acc/len(train_loader):.3f}",
         )
 
     return net

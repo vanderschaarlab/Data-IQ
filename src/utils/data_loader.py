@@ -112,7 +112,7 @@ def load_dataset(dataset, seed=None):
         # Assess feature-label correlations
         corr_matrix = df.corr()
         columns = list(
-            np.abs(corr_matrix["is_dead"]).sort_values(ascending=False).index
+            np.abs(corr_matrix["is_dead"]).sort_values(ascending=False).index,
         )[::-1][0:-1]
         corr_vals = np.abs(corr_matrix["is_dead"]).sort_values(ascending=False)[::-1][
             0:-1
@@ -134,7 +134,10 @@ def load_dataset(dataset, seed=None):
         if seed is not None:
             # For specific example we want to show
             X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=0.4, random_state=seed
+                X,
+                y,
+                test_size=0.4,
+                random_state=seed,
             )
 
         # Make pandas dataset copy
@@ -159,7 +162,8 @@ def load_dataset(dataset, seed=None):
         """Load the Prostate datasets"""
         df_feat_seer, df_label_seer, df = load_seer_cutract_dataset("seer", seed=42)
         df_feat_cutract, df_label_cutract, _ = load_seer_cutract_dataset(
-            "cutract", seed=42
+            "cutract",
+            seed=42,
         )
 
         # Combine datasets
@@ -416,7 +420,7 @@ def load_seer_cutract_dataset(name="seer", seed=42):
         [
             df_dead.sample(ns, random_state=seed),
             df_survive.sample(n_samples, random_state=seed),
-        ]
+        ],
     )
 
     df = sklearn.utils.shuffle(df, random_state=seed)

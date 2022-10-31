@@ -69,7 +69,7 @@ class LossComputer:
         if self.is_robust:
             self.robust_step_size = robust_step_size
             logging.info(
-                f"Using robust loss with inner step size {self.robust_step_size}"
+                f"Using robust loss with inner step size {self.robust_step_size}",
             )
             self.stable = stable
             self.group_counts = group_counts.to(self.group_range.device)
@@ -98,13 +98,13 @@ class LossComputer:
                 self.loss_adjustment = self.adj
 
             logging.info(
-                f"Per-group loss adjustments: {np.round(self.loss_adjustment.tolist(), 2)}"
+                f"Per-group loss adjustments: {np.round(self.loss_adjustment.tolist(), 2)}",
             )
             # The following quantities are maintained/updated throughout training
             if self.stable:
                 logging.info("Using numerically stabilized DRO algorithm")
                 self.adv_probs_logits = torch.zeros(self.n_gdro_groups).to(
-                    self.group_range.device
+                    self.group_range.device,
                 )
             else:  # for debugging purposes
                 logging.warn("Using original DRO algorithm")
@@ -131,7 +131,8 @@ class LossComputer:
         y.shape[0]
 
         group_losses, group_counts = self.compute_group_avg(
-            per_sample_losses, group_idx
+            per_sample_losses,
+            group_idx,
         )
         corrects = (torch.argmax(yhat, 1) == y).float()
         group_accs, group_counts = self.compute_group_avg(corrects, group_idx)
@@ -152,7 +153,7 @@ class LossComputer:
                         pair_loss = (neg_sbc_loss + pos_sbc_loss) / tot_count
                         pair_losses.append(pair_loss)
                 loss, _ = self.compute_robust_loss(
-                    torch.cat([pl.view(1) for pl in pair_losses])
+                    torch.cat([pl.view(1) for pl in pair_losses]),
                 )
             else:
                 loss, _ = self.compute_robust_loss(group_losses)
@@ -224,11 +225,12 @@ class LossComputer:
                 group_denom = torch.sum(reweight[inds])
                 group_denom = group_denom
                 group_loss.append(
-                    torch.sum(group_losses) / (group_denom + (group_denom == 0).float())
+                    torch.sum(group_losses)
+                    / (group_denom + (group_denom == 0).float()),
                 )
                 group_count.append(group_denom)
             group_loss, group_count = torch.tensor(group_loss), torch.tensor(
-                group_count
+                group_count,
             )
         else:
             group_map = (group_idx == group_range).float()
@@ -283,7 +285,7 @@ class EarlyStopping:
         """Saves model when validation loss decrease."""
 
         print(
-            f"Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ..."
+            f"Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...",
         )
         torch.save(model.state_dict(), self.path)
         self.val_loss_min = val_loss

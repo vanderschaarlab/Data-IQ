@@ -27,7 +27,7 @@ class ImageClassificationBase(nn.Module):
 
     def epoch_end(self, epoch, result):
         print(
-            f"Epoch [{epoch}], train_loss: {result['train_loss']}, val_loss: {result['val_loss']}, val_acc: {result['val_acc']}"
+            f"Epoch [{epoch}], train_loss: {result['train_loss']}, val_loss: {result['val_loss']}, val_acc: {result['val_acc']}",
         )
 
 

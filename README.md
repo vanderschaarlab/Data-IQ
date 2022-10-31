@@ -97,7 +97,7 @@ for e in range(1, EPOCHS + 1):
     for X_batch, y_batch in train_loader:
         ### ADD TRAIN LOOP HERE ###
 
-    
+
     # *** CALL DATA-IQ on EPOCH END [LINE 2] ***
     dataiq.on_epoch_end(net, device=device)
 
@@ -132,7 +132,7 @@ clf.fit(X_train, y_train)
 
 for i in range(1, nest):
     # *** Characterize with Data-IQ [LINE 2] ***
-    dataiq_xgb.on_epoch_end(clf=clf, iteration=i) 
+    dataiq_xgb.on_epoch_end(clf=clf, iteration=i)
 
 # *** Access metrics ***
 aleatoric_uncertainty = dataiq_xgb.aleatoric
@@ -155,7 +155,7 @@ These notebooks can be found in the ``/tutorial`` folder. The Adult open-source 
 
 
 ## Data-IQ metrics
-The Data-IQ package provides a wide variety of metrics to characterize training dynamics. 
+The Data-IQ package provides a wide variety of metrics to characterize training dynamics.
 
 The primary & suggested metrics are: **Aleatoric uncertainty** and **Predictive confidence**. However, other metrics are also included as part of the package.
 
@@ -171,7 +171,7 @@ The different metrics available to characterize training dynamics are as follows
 
 ## Use-cases
 
-We highlight different use-cases of Data-IQ from understanding learning dynamics, creating characteristic curves, feature acquisition etc as well as, different data modalities in notebooks which can be found in the ``/use_cases`` folder. 
+We highlight different use-cases of Data-IQ from understanding learning dynamics, creating characteristic curves, feature acquisition etc as well as, different data modalities in notebooks which can be found in the ``/use_cases`` folder.
 
 
 ## Citing

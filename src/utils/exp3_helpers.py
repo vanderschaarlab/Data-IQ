@@ -99,7 +99,7 @@ def load_seer_cutract_dataset(name, seed):
         [
             df_dead.sample(ns, random_state=random_seed),
             df_survive.sample(n_samples, random_state=random_seed),
-        ]
+        ],
     )
     df = sklearn.utils.shuffle(df, random_state=random_seed)
     df = df.reset_index(drop=True)
@@ -165,11 +165,11 @@ def filter_with_dataiq(X_train, y_train, nest):
     # Get the 3 subgroups
     hard_train = np.where(
         (confidence_train <= conf_thresh_low)
-        & (aleatoric_train <= np.percentile(aleatoric_train, percentile_thresh))
+        & (aleatoric_train <= np.percentile(aleatoric_train, percentile_thresh)),
     )[0]
     easy_train = np.where(
         (confidence_train >= conf_thresh_high)
-        & (aleatoric_train <= np.percentile(aleatoric_train, percentile_thresh))
+        & (aleatoric_train <= np.percentile(aleatoric_train, percentile_thresh)),
     )[0]
 
     hard_easy = np.concatenate((hard_train, easy_train))
