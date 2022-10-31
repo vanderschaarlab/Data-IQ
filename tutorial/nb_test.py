@@ -1,5 +1,4 @@
 # stdlib
-import os
 from pathlib import Path
 
 # third party
@@ -8,13 +7,13 @@ from nbconvert.preprocessors import ExecutePreprocessor
 import nbformat
 
 
-def run_notebook(notebook_path: Path) -> None:
+def run_notebook(notebook_path: Path, notebook_dir: Path) -> None:
     with open(notebook_path) as f:
         nb = nbformat.read(f, as_version=4)
 
     proc = ExecutePreprocessor(timeout=1800)
     # Will raise on cell error
-    proc.preprocess(nb, {"metadata": {"path": os.getcwd()}})
+    proc.preprocess(nb, {"metadata": {"path": notebook_dir}})
 
 
 @click.command()
@@ -30,7 +29,7 @@ def main(nb_dir: Path) -> None:
 
         print("Testing ", p.name)
         try:
-            run_notebook(p)
+            run_notebook(p, nb_dir)
         except BaseException as e:
             print("FAIL", p.name, e)
 
