@@ -1,4 +1,6 @@
 # third party
+import sys
+import pytest
 from demo_data import load_adult_data
 import numpy as np
 from sklearn import preprocessing
@@ -64,6 +66,7 @@ LEARNING_RATE = 0.01
 EPOCHS = 10
 
 
+@pytest.mark.skipif(sys.platform == "darwin", reason="libomp crash on OSX")
 def test_torch_example() -> None:
 
     train_data = TrainData(torch.FloatTensor(X_train), torch.FloatTensor(y_train))
