@@ -2,6 +2,7 @@
 from catboost import CatBoostClassifier
 from demo_data import load_adult_data
 from lightgbm import LGBMClassifier
+import pytest
 import xgboost as xgb
 
 # data_iq absolute
@@ -35,6 +36,7 @@ def test_xgboost_example() -> None:
     eval_helper(clf, nest=nest)
 
 
+@pytest.mark.skipif(sys.platform == "darwin", reason="LGBM crash on OSX")
 def test_lgm_example() -> None:
     nest = 10
 
