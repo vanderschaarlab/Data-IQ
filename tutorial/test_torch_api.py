@@ -58,15 +58,16 @@ X_test = scaler.transform(X_test)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+BATCH_SIZE = 128
+
+LEARNING_RATE = 0.01
+EPOCHS = 10
+
 
 def test_torch_example() -> None:
-    BATCH_SIZE = 128
 
     train_data = TrainData(torch.FloatTensor(X_train), torch.FloatTensor(y_train))
     train_loader = DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
-
-    LEARNING_RATE = 0.01
-    EPOCHS = 10
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -74,7 +75,7 @@ def test_torch_example() -> None:
     net = Example_NN(input_size=X_train.shape[1], nlabels=len(np.unique(y_train)))
     net.to(device)
 
-    train_loader = DataLoader(dataset=train_data, batch_size=128, shuffle=True)
+    train_loader = DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
     sf = nn.LogSoftmax()
     criterion = torch.nn.NLLLoss()
     optimizer = optim.Adam(net.parameters(), lr=LEARNING_RATE)
