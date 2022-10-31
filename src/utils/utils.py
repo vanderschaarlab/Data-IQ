@@ -1,5 +1,7 @@
+# stdlib
 import logging
 
+# third party
 import numpy as np
 import torch
 from torch.utils.data import Dataset
@@ -150,7 +152,7 @@ class LossComputer:
                         pair_loss = (neg_sbc_loss + pos_sbc_loss) / tot_count
                         pair_losses.append(pair_loss)
                 loss, _ = self.compute_robust_loss(
-                    torch.cat([l.view(1) for l in pair_losses])
+                    torch.cat([pl.view(1) for pl in pair_losses])
                 )
             else:
                 loss, _ = self.compute_robust_loss(group_losses)
@@ -298,6 +300,7 @@ def get_scores_generic(overall_list, combos):
     Returns:
       The mean of the pearson and spearman correlation
     """
+    # third party
     from scipy import stats
 
     corr = []  # pearson
@@ -322,6 +325,7 @@ def get_grad_scores(dataiqs, combos):
     Returns:
       The mean of the pearson and spearman correlations
     """
+    # third party
     from scipy import stats
 
     corr = []  # pearson
@@ -346,6 +350,7 @@ def get_dataiq_scores(dataiqs, combos, feat):
     Returns:
       the average of the pearson and spearman correlation
     """
+    # third party
     from scipy import stats
 
     corr = []  # pearson
@@ -384,31 +389,29 @@ def get_dataiq_scores(dataiqs, combos, feat):
     return r1, r2
 
 
-
-
 def compare_model_classes(model1, model2, feat=None):
+    # third party
     from scipy import stats
 
-    if feat=='variability':
-      rvs1=model1.variability
-      rvs2=model2.variability
+    if feat == "variability":
+        rvs1 = model1.variability
+        rvs2 = model2.variability
     else:
-      rvs1=model1.aleatoric
-      rvs2=model2.aleatoric
+        rvs1 = model1.aleatoric
+        rvs2 = model2.aleatoric
 
-    x_corr1 = np.corrcoef(rvs1, rvs2)[0,1] # pearson
-    x_corr2 = stats.spearmanr(rvs1, rvs2)[0] # spearman
+    x_corr1 = np.corrcoef(rvs1, rvs2)[0, 1]  # pearson
+    x_corr2 = stats.spearmanr(rvs1, rvs2)[0]  # spearman
 
-    rvs1=model1.confidence
-    rvs2=model2.confidence
-    
-    y_corr1 = np.corrcoef(rvs1, rvs2)[0,1] # pearson
-    y_corr2 = stats.spearmanr(rvs1, rvs2)[0] # spearman
-    
-    r1 = (x_corr1+y_corr1)/2
-    r2 = (x_corr2+y_corr2)/2
-    return x_corr1, x_corr2, y_corr1, y_corr2, r1,r2
-  
+    rvs1 = model1.confidence
+    rvs2 = model2.confidence
+
+    y_corr1 = np.corrcoef(rvs1, rvs2)[0, 1]  # pearson
+    y_corr2 = stats.spearmanr(rvs1, rvs2)[0]  # spearman
+
+    r1 = (x_corr1 + y_corr1) / 2
+    r2 = (x_corr2 + y_corr2) / 2
+    return x_corr1, x_corr2, y_corr1, y_corr2, r1, r2
 
 
 def compute_jtt(X_train, y_train, net):

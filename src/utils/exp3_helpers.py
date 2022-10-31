@@ -1,12 +1,16 @@
+# stdlib
+import sys
+
+# third party
 import numpy as np
 import pandas as pd
 import sklearn
 import xgboost as xgb
 
-import sys
 sys.path.insert(0, "../..")
 
-from data_iq.dataiq_class import DataIQ_SKLearn
+# data_iq absolute
+from data_iq.dataiq_class import DataIQ_SKLearn  # noqa: E402
 
 
 def load_seer_cutract_dataset(name, seed):
@@ -81,7 +85,7 @@ def load_seer_cutract_dataset(name, seed):
     df["mortCancer"] = df["mortCancer"].astype(int)
     df["mort"] = df["mort"].astype(int)
 
-    mask = df[label] == True
+    mask = df[label] == True  # noqa: E712
     df_dead = df[mask]
     df_survive = df[~mask]
 

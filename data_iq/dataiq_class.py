@@ -1,7 +1,8 @@
+# third party
+from autograd_lib import autograd_lib
 import numpy as np
 import torch
 
-from autograd_lib import autograd_lib
 
 class DataIQ_Torch:
     def __init__(self, X, y, sparse_labels: bool = False):

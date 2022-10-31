@@ -1,5 +1,8 @@
 # Imports
+# stdlib
 from copy import deepcopy
+
+# third party
 import numpy as np
 import pandas as pd
 import torch
@@ -9,6 +12,7 @@ from torch.utils.data import DataLoader, Dataset
 def load_dataset(dataset, seed=None):
     """Function that loads the different datasets."""
 
+    # third party
     from sklearn.model_selection import train_test_split
 
     if dataset == "support":
@@ -37,7 +41,7 @@ def load_dataset(dataset, seed=None):
             try:
                 id = X.columns.get_loc(name)
                 column_ids.append(id)
-            except:
+            except BaseException:
                 pass
         column_ids = np.array(column_ids)
 
@@ -57,9 +61,11 @@ def load_dataset(dataset, seed=None):
         y_test = y_test.values.astype(np.float32)
         labels = np.unique(y_train)
         nlabels = len(labels)
-        
+
         # Scale data
+        # third party
         from sklearn import preprocessing
+
         scaler = preprocessing.StandardScaler().fit(X_train)
         X_train = scaler.transform(X_train)
         X_test = scaler.transform(X_test)
@@ -118,14 +124,14 @@ def load_dataset(dataset, seed=None):
             try:
                 id = X.drop(columns=["Race", "SG_UF_NOT"]).columns.get_loc(name)
                 column_ids.append(id)
-            except:
+            except BaseException:
                 pass
         column_ids = np.array(column_ids)
 
         # Split dataset
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
 
-        if seed != None:
+        if seed is not None:
             # For specific example we want to show
             X_train, X_test, y_train, y_test = train_test_split(
                 X, y, test_size=0.4, random_state=seed
@@ -213,7 +219,7 @@ def load_dataset(dataset, seed=None):
             try:
                 id = X_train_pd.columns.get_loc(name)
                 column_ids.append(id)
-            except:
+            except BaseException:
                 pass
         column_ids = np.array(column_ids)
 
@@ -250,7 +256,6 @@ def load_dataset(dataset, seed=None):
 
         # class-idx relationship
         class2idx = {1: 0, 2: 1, 3: 2}
-        idx2class = {v: k for k, v in class2idx.items()}
 
         df["NSP"].replace(class2idx, inplace=True)
 
@@ -272,7 +277,9 @@ def load_dataset(dataset, seed=None):
         labels = np.unique(y_train)
         nlabels = len(labels)
 
+        # third party
         from sklearn import preprocessing
+
         # Scale data
         scaler = preprocessing.StandardScaler().fit(X_train)
         X_train = scaler.transform(X_train)
@@ -291,7 +298,7 @@ def load_dataset(dataset, seed=None):
             try:
                 id = X.columns.get_loc(name)
                 column_ids.append(id)
-            except:
+            except BaseException:
                 pass
         column_ids = np.array(column_ids)
 
@@ -306,7 +313,6 @@ def load_dataset(dataset, seed=None):
         def __len__(self):
             return len(self.X_data)
 
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     BATCH_SIZE = 128
     # Create train dataloader
     train_data = TrainData(torch.FloatTensor(X_train), torch.FloatTensor(y_train))
@@ -333,6 +339,7 @@ def load_dataset(dataset, seed=None):
 def load_seer_cutract_dataset(name="seer", seed=42):
     """Function that loads the Seer and Cutract dataset."""
 
+    # third party
     import pandas as pd
     import sklearn
 
@@ -387,7 +394,6 @@ def load_seer_cutract_dataset(name="seer", seed=42):
         "stage_4",
     ]
 
-
     label = "mortCancer"
     df = pd.read_csv(f"../data/{name}.csv")
 
@@ -396,7 +402,7 @@ def load_seer_cutract_dataset(name="seer", seed=42):
     df["mortCancer"] = df["mortCancer"].astype(int)
     df["mort"] = df["mort"].astype(int)
 
-    mask = df[label] == True
+    mask = df[label] == True  # noqa: E712
     df_dead = df[mask]
     df_survive = df[~mask]
 

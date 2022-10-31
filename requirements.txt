@@ -9,6 +9,7 @@ matplotlib
 nltk
 notebook
 numpy
+nbconvert
 pandas>=1.3.5
 pre-commit>=2.19.0
 protobuf>=4.21.8
