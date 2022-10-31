@@ -33,7 +33,7 @@ jobs:
             bandit -r data_iq/*
 
   Library:
-    needs: [Linter]
+    #needs: [Linter]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
