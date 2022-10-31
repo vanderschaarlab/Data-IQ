@@ -1,3 +1,6 @@
+# stdlib
+import sys
+
 # third party
 from catboost import CatBoostClassifier
 from demo_data import load_adult_data
