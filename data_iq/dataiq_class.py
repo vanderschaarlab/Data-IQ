@@ -278,7 +278,7 @@ class DataIQ_SKLearn:
         Defaults to False
         """
         self.X = X
-        self.y = y
+        self.y = np.asarray(y).tolist()
         self._sparse_labels = sparse_labels
 
         # placeholder

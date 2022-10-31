@@ -1,7 +1,12 @@
+# stdlib
+from pathlib import Path
+
 # third party
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+
+current_dir = Path(__file__).parent
 
 
 def load_adult_data(split_size=0.3):
@@ -133,10 +138,7 @@ def load_adult_data(split_size=0.3):
 
         return df
 
-    try:
-        df = pd.read_csv("./adult.csv", delimiter=",")
-    except BaseException:
-        df = pd.read_csv("../data/adult.csv", delimiter=",")
+    df = pd.read_csv(current_dir / "adult.csv", delimiter=",")
 
     df = process_dataset(df)
 
