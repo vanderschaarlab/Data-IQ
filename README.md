@@ -1,4 +1,10 @@
 # Data-IQ: Characterizing subgroups with heterogeneous outcomes in tabular data
+
+[![Tests](https://github.com/vanderschaarlab/Data-IQ/actions/workflows/test.yml/badge.svg)](https://github.com/vanderschaarlab/Data-IQ/actions/workflows/test.yml)
+[![Tutorials](https://github.com/vanderschaarlab/Data-IQ/actions/workflows/test_tutorials.yml/badge.svg)](https://github.com/vanderschaarlab/Data-IQ/actions/workflows/test_tutorials.yml)
+[![arXiv](https://img.shields.io/badge/arXiv-2210.13043-b31b1b.svg)](https://arxiv.org/abs/2210.13043)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/vanderschaarlab/Data-IQ/blob/main/LICENSE)
+
 ![image](pipeline.png "Data-IQ pipeline")
 
 This repository contains the implementation of Data-IQ, a "Data-Centric AI" framework to characterize subgroups with heterogeneous outcomes in tabular data.
@@ -21,15 +27,19 @@ For more details, please read our [NeurIPS 2022 paper](Link coming soon): *Data-
 
 - Minimum requirements to run Data-IQ on your own data
  ```shell
-pip install -r requirements-minimum.txt
+pip install data_iq
  ```
-
-- Full requirements to run Data-IQ 
+or from source,
  ```shell
-pip install -r requirements.txt
+pip install .
  ```
 
-4. Link the venv to the kernal:
+- Full requirements to run Data-IQ tests and tutorials
+ ```shell
+pip install .[testing]
+ ```
+
+4. Link the venv to the kernel:
   ```shell
  python -m ipykernel install --user --name=dataiq_env
  ```
@@ -40,7 +50,11 @@ pip install -r requirements.txt
 
 ### Getting Data-IQ
 
-* **Option 1**: Install as a package (called ``data_iq``)
+* **Option 1**: Install as a package (called ``data_iq``) from PyPI using
+ ```shell
+pip install data_iq
+ ```
+ or from source using
  ```shell
     python -m pip install -e .
  ```
