@@ -5,6 +5,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2210.13043-b31b1b.svg)](https://arxiv.org/abs/2210.13043)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/vanderschaarlab/Data-IQ/blob/main/LICENSE)
 
+
 ![image](pipeline.png "Data-IQ pipeline")
 
 This repository contains the implementation of Data-IQ, a "Data-Centric AI" framework to characterize subgroups with heterogeneous outcomes in tabular data.
